@@ -3,7 +3,7 @@ const HeroSection = () => {
     <div className="flex items-center justify-around w-full max-w-7xl mx-auto px-5 gap-x-10">
       <div className="flex flex-col gap-y-3 text-center max-w-lg z-20">
         <div
-          className="flex justify-center items-center text-5xl sm:text-7xl
+          className="flex justify-center items-center text-4xl xs:text-5xl sm:text-7xl
           text-transparent font-extrabold gap-x-2 sm:gap-x-3"
         >
           <h1 className="bg-gradient-to-r from-[#217bfe] to-[#e55571] bg-clip-text">
