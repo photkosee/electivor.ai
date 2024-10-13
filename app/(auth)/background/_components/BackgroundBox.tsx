@@ -10,7 +10,7 @@ const BackgroundBox = () => {
         <div className="bg-white rounded-lg text-indigo-800 p-3 lg:p-5">
           <h5 className="font-bold">What is this for?</h5>
           <div>
-            Adding courses you had done to your profile will help you get a
+            Adding courses you had done or planning to enrol will help you get a
             better recommendation and preventing our AI to recommend you the
             same course again.
           </div>

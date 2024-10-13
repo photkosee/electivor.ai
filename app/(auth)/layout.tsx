@@ -21,7 +21,7 @@ const AuthLayout = ({
         <div className="h-[1px] w-full bg-neutral-200" />
       </Sidebar>
 
-      <div className="pl-[87px] lg:pl-3 pr-3 w-full flex justify-center bg-white">
+      <div className="pl-20 lg:pl-3 pr-3 w-full flex justify-center bg-white">
         {children}
       </div>
     </div>
