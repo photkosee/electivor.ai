@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 const HeroSection = () => {
   return (
     <div className="flex items-center justify-around w-full max-w-7xl mx-auto px-5 gap-x-10">
-      <div className="flex flex-col gap-y-3 text-center max-w-lg z-20">
+      <div className="flex flex-col gap-y-3 text-center max-w-lg select-none">
         <div
           className="flex justify-center items-center text-4xl xs:text-5xl sm:text-7xl
           text-transparent font-extrabold gap-x-2 sm:gap-x-3"
@@ -25,12 +27,13 @@ const HeroSection = () => {
           <br /> Not knowing which course to take for your career?
         </h3>
 
-        <button
+        <Link
+          href="/chat"
           className="bg-gradient-to-r from-[#217bfe] to-[#e55571] px-6 py-3
           rounded-full w-auto font-semibold text-lg hover:opacity-90 transition-all"
         >
           Ask Here
-        </button>
+        </Link>
       </div>
     </div>
   );
