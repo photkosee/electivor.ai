@@ -36,7 +36,7 @@ const AddCourseModal = () => {
     }
   }, [isLoaded, user]);
 
-  async function getCoursesFromUser(email: string) {
+  const getCoursesFromUser = async (email: string) => {
     try {
       const userRef = doc(db, "users", email);
       const userSnap = await getDoc(userRef);
@@ -51,7 +51,7 @@ const AddCourseModal = () => {
     } catch (error) {
       console.error("Error getting user data: ", error);
     }
-  }
+  };
 
   const addCourse = async (e: FormEvent) => {
     e.preventDefault();

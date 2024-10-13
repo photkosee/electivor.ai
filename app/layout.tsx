@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   description: "Course Recommendation Chatbot for UNSW students",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <ClerkProvider>
       <html lang="en">
@@ -23,4 +23,6 @@ export default function RootLayout({
       </html>
     </ClerkProvider>
   );
-}
+};
+
+export default RootLayout;
