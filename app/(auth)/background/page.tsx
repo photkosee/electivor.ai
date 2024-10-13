@@ -11,11 +11,7 @@ const BackgroundBox = dynamic(
 );
 
 const BackgroundPage = () => {
-  return (
-    <div>
-      <BackgroundBox />
-    </div>
-  );
+  return <BackgroundBox />;
 };
 
 export default BackgroundPage;
