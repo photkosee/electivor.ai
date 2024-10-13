@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from "zustand"
 
 type SidebarStoreType = {
   sidebarExpand: boolean
@@ -8,6 +8,6 @@ type SidebarStoreType = {
 const useSidebarStore = create<SidebarStoreType>((set) => ({
   sidebarExpand: false,
   toggleSidebar: () => set((state) => ({ sidebarExpand: !state.sidebarExpand })),
-}))
+}));
 
 export default useSidebarStore;

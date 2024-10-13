@@ -1,6 +1,5 @@
 import { FileUp } from "lucide-react";
 
-import CourseCard from "@/app/(auth)/background/_components/CourseCard";
 import AddCourseModal from "@/app/(auth)/background/_components/AddCourseModal";
 
 const BackgroundBox = () => {
@@ -27,15 +26,6 @@ const BackgroundBox = () => {
       </button>
 
       <AddCourseModal />
-
-      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-2">
-        <CourseCard code="CS 101" name="Introduction to Computer Science" />
-        <CourseCard code="CS 101" name="Introduction to Computer Science" />
-        <CourseCard code="CS 101" name="Introduction to Computer Science" />
-        <CourseCard code="CS 101" name="Introduction to Computer Science" />
-        <CourseCard code="CS 101" name="Introduction to Computer Science" />
-        <CourseCard code="CS 101" name="Introduction to Computer Science" />
-      </div>
     </div>
   );
 };

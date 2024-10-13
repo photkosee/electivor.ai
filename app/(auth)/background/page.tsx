@@ -1,14 +1,4 @@
-import dynamic from "next/dynamic";
-
-import LoadingScreen from "@/app/_components/LoadingScreen";
-
-const BackgroundBox = dynamic(
-  () => import("@/app/(auth)/background/_components/BackgroundBox"),
-  {
-    loading: () => <LoadingScreen />,
-    ssr: false,
-  }
-);
+import BackgroundBox from "@/app/(auth)/background/_components/BackgroundBox";
 
 const BackgroundPage = () => {
   return <BackgroundBox />;

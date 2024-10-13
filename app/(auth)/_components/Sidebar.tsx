@@ -1,14 +1,20 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { ChevronLast } from "lucide-react";
 import { UserButton, useUser } from "@clerk/nextjs";
 
 import useSidebarStore from "@/app/_stores/SidebarStore";
+import useUserStore from "@/app/_stores/UserStore";
 
 const Sidebar = ({ children }: { children: ReactNode }) => {
   const { sidebarExpand, toggleSidebar } = useSidebarStore();
+  const { setEmail } = useUserStore();
   const { user } = useUser();
+
+  useEffect(() => {
+    setEmail(user?.emailAddresses[0]?.emailAddress || "");
+  }, [user]);
 
   return (
     <aside className="h-screen lg:static fixed top-0 bottom-0 left-0 z-30">
