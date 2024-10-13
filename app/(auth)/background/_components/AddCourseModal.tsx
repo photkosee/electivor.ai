@@ -5,7 +5,7 @@ import { PlusCircle } from "lucide-react";
 
 import Modal from "@/app/_components/Modal";
 
-export default function AddCourseModal() {
+const AddCourseModal = () => {
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
@@ -90,4 +90,6 @@ export default function AddCourseModal() {
       </Modal>
     </>
   );
-}
+};
+
+export default AddCourseModal;

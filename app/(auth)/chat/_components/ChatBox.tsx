@@ -4,9 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 
 import RecommendationPrompt from "@/app/(auth)/chat/_components/RecommendationPrompt";
+import QueryBubble from "@/app/(auth)/chat/_components/QueryBubble";
+import LoadingResponse from "@/app/(auth)/chat/_components/LoadingResponse";
 
 const ChatBox = () => {
   const [text, setText] = useState<string>("");
+  const [openSuggest, setOpenSuggest] = useState<boolean>(true);
+  const [query, setQuery] = useState<string>("");
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const responseAreaRef = useRef<HTMLDivElement>(null);
@@ -48,6 +52,7 @@ const ChatBox = () => {
     if (text.trim()) {
       console.log("Message sent:", text); // Replace with your submission logic
       setText(""); // Clear the input after submission
+      setOpenSuggest(false);
     }
   };
 
@@ -61,11 +66,15 @@ const ChatBox = () => {
       <div className="bg-white h-4" />
 
       <div className="overflow-y-auto w-full" ref={responseAreaRef}>
-        <div className="max-w-4xl mx-auto px-3 lg:pl-9 py-10">Response</div>
+        <div className="max-w-4xl mx-auto px-3 lg:pl-9 py-10 flex flex-col gap-y-5">
+          Response
+          <QueryBubble text="asdfsdfasdfffffffffffffffffffffffffffffasdfasdfasdfasdfasdfasdfasdfasdfsadfasdfasdf fffffffffffffffffffffffffff" />
+          <LoadingResponse />
+        </div>
       </div>
 
       <div className="flex flex-col gap-y-5 fixed bottom-0 max-w-4xl px-12 bg-white w-full">
-        <RecommendationPrompt />
+        {openSuggest ? <RecommendationPrompt /> : null}
 
         <div className="bg-white pb-3">
           <form
@@ -79,6 +88,7 @@ const ChatBox = () => {
                 ref={textAreaRef}
                 value={text}
                 onChange={handleChange}
+                autoFocus
                 placeholder="Ask here..."
                 className="w-full h-auto resize-none overflow-auto focus:outline-none
                 text-gray-800 bg-inherit max-h-[200px] scrollbar-thin scrollbar-webkit"

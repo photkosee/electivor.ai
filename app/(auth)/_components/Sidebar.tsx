@@ -1,12 +1,14 @@
 "use client";
 
 import { ReactNode } from "react";
-import { MoreVertical, ChevronLast } from "lucide-react";
+import { ChevronLast } from "lucide-react";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 import useSidebarStore from "@/app/_stores/SidebarStore";
 
 const Sidebar = ({ children }: { children: ReactNode }) => {
   const { sidebarExpand, toggleSidebar } = useSidebarStore();
+  const { user } = useUser();
 
   return (
     <aside className="h-screen lg:static fixed top-0 bottom-0 left-0 z-30">
@@ -27,19 +29,26 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
         <ul className="flex-1 px-3">{children}</ul>
 
         <div className="border-t flex p-3">
+          <div className="flex items-center justify-center pl-2">
+            <UserButton />
+          </div>
+
           <div
             className={`
               flex justify-between items-center
               overflow-hidden transition-all ${
-                sidebarExpand ? "w-52 ml-3" : "w-0"
+                sidebarExpand ? "w-52 ml-3 truncate" : "w-0"
               }
             `}
           >
             <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+              <h4 className="font-semibold">
+                {user?.firstName} {user?.lastName}
+              </h4>
+              <span className="text-xs text-gray-600">
+                {user?.emailAddresses[0]?.emailAddress}
+              </span>
             </div>
-            <MoreVertical size={20} />
           </div>
         </div>
       </nav>

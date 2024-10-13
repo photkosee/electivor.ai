@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <div className="flex items-center justify-around w-full max-w-7xl mx-auto px-5 gap-x-10">
+    <div className="flex items-center justify-around w-full max-w-7xl mx-auto p-5 gap-x-10">
       <div className="flex flex-col gap-y-3 text-center max-w-lg select-none">
         <div
           className="flex justify-center items-center text-4xl xs:text-5xl sm:text-7xl
