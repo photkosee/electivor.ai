@@ -10,8 +10,10 @@ import { db } from "@/app/firebase";
 import { MessageType } from "@/app/types";
 import useUserStore from "@/app/_stores/UserStore";
 import useMessageStore from "@/app/_stores/MessageStore";
+import useToastStore from "@/app/_stores/ToastStore";
 import ChatList from "@/app/(auth)/chat/_components/ChatList";
 import LoadingScreen from "@/app/_components/LoadingScreen";
+import Toast from "@/app/(auth)/_components/Toast";
 
 const RecommendationPrompt = dynamic(
   () => import("@/app/(auth)/chat/_components/RecommendationPrompt"),
@@ -23,6 +25,7 @@ const RecommendationPrompt = dynamic(
 const ChatBox = () => {
   const [text, setText] = useState<string>("");
   const { messages, setMessages } = useMessageStore();
+  const { showToast, toastList } = useToastStore();
   const { isLoaded } = useUser();
   const { email } = useUserStore();
 
@@ -37,7 +40,6 @@ const ChatBox = () => {
 
       if (responseAreaRef.current) {
         // Also adjust the height of the response area accordingly
-        console.log(textAreaRef.current.scrollHeight);
         if (textAreaRef.current.scrollHeight > 200) {
           responseAreaRef.current.style.height = `calc(100vh - 270px)`;
         } else {
@@ -68,8 +70,7 @@ const ChatBox = () => {
   const submitQuery = async (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
-      console.log("Message sent:", text); // Replace with your submission logic
-      setText(""); // Clear the input after submission
+      setText("");
     }
 
     const newQuery: MessageType = {
@@ -97,7 +98,11 @@ const ChatBox = () => {
         });
       }
     } catch (error) {
-      console.error(error);
+      showToast(
+        (Math.random() + 1).toString(36).substring(7),
+        toastList,
+        <Toast type="error" message="Error" desc="Could not send query" />
+      );
     }
   };
 

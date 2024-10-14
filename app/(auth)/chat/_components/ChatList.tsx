@@ -6,11 +6,14 @@ import { useUser } from "@clerk/nextjs";
 
 import { db } from "@/app/firebase";
 import useMessageStore from "@/app/_stores/MessageStore";
+import useToastStore from "@/app/_stores/ToastStore";
 import QueryBubble from "@/app/(auth)/chat/_components/QueryBubble";
+import Toast from "@/app/(auth)/_components/Toast";
 
 const ChatList = () => {
-  const { messages, setMessages } = useMessageStore();
   const { user, isLoaded } = useUser();
+  const { messages, setMessages } = useMessageStore();
+  const { showToast, toastList } = useToastStore();
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -26,12 +29,13 @@ const ChatList = () => {
       if (userSnap.exists()) {
         const userData = userSnap.data();
         setMessages(userData.messages);
-        console.log("User Data:", userData);
-      } else {
-        console.log("No such user!");
       }
     } catch (error) {
-      console.error("Error getting user data: ", error);
+      showToast(
+        (Math.random() + 1).toString(36).substring(7),
+        toastList,
+        <Toast type="error" message="Error" desc="Could not fetch messages" />
+      );
     }
   };
 

@@ -2,14 +2,16 @@
 
 import { MessageSquareX } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
+import { useEffect, useRef, useState } from "react";
 
 import { db } from "@/app/firebase";
 import useMessageStore from "@/app/_stores/MessageStore";
 import useSidebarStore from "@/app/_stores/SidebarStore";
 import useUserStore from "@/app/_stores/UserStore";
 import Modal from "@/app/_components/Modal";
-import { useEffect, useRef, useState } from "react";
 import LoadingScreen from "@/app/_components/LoadingScreen";
+import useToastStore from "@/app/_stores/ToastStore";
+import Toast from "@/app/(auth)/_components/Toast";
 
 const ClearChatButton = () => {
   const { sidebarExpand } = useSidebarStore();
@@ -18,6 +20,7 @@ const ClearChatButton = () => {
   const [loading, setLoading] = useState(false);
   const buttonSubmitRef = useRef<HTMLButtonElement>(null);
   const { email } = useUserStore();
+  const { showToast, toastList } = useToastStore();
 
   const clearChat = async () => {
     setLoading(true);
@@ -31,11 +34,21 @@ const ClearChatButton = () => {
       setTimeout(() => {
         setLoading(false);
         setOpen(false);
+        showToast(
+          (Math.random() + 1).toString(36).substring(7),
+          toastList,
+          <Toast type="success" message="Chat cleared" />
+        );
       }, 500);
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
         setOpen(false);
+        showToast(
+          (Math.random() + 1).toString(36).substring(7),
+          toastList,
+          <Toast type="error" message="Error" />
+        );
       }, 500);
     }
   };
@@ -88,7 +101,7 @@ const ClearChatButton = () => {
           </div>
         ) : (
           <form
-            className="select-none flex flex-col gap-y-5 py-3"
+            className="select-none flex flex-col gap-y-5"
             onSubmit={clearChat}
           >
             <div className="mx-auto text-center">

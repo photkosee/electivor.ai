@@ -7,10 +7,13 @@ import { CourseType } from "@/app/types";
 import { db } from "@/app/firebase";
 import useUserStore from "@/app/_stores/UserStore";
 import useCourseStore from "@/app/_stores/CourseStore";
+import useToastStore from "@/app/_stores/ToastStore";
+import Toast from "@/app/(auth)/_components/Toast";
 
 const CourseCard = ({ code, name }: CourseType) => {
   const { email } = useUserStore();
   const { setCourses } = useCourseStore();
+  const { showToast, toastList } = useToastStore();
 
   const deleteCourse = async () => {
     const userRef = doc(db, "users", email);
@@ -35,9 +38,19 @@ const CourseCard = ({ code, name }: CourseType) => {
         });
 
         setCourses(updatedCourses);
+
+        showToast(
+          (Math.random() + 1).toString(36).substring(7),
+          toastList,
+          <Toast type="success" message="Success" desc="Course deleted" />
+        );
       }
     } catch (error) {
-      console.error("Error deleting course: " + error);
+      showToast(
+        (Math.random() + 1).toString(36).substring(7),
+        toastList,
+        <Toast type="error" message="Error" desc="Could not delete course" />
+      );
     }
   };
 
