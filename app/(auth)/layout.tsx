@@ -11,7 +11,7 @@ const AuthLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="min-h-screen h-full flex justify-start bg-secondary relative">
+    <div className="min-h-[100svh] h-full flex justify-start bg-secondary relative">
       <Sidebar>
         <SidebarItem icon={<School />} text="Background" link="/background" />
         <SidebarItem

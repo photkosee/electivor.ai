@@ -17,7 +17,7 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   return (
-    <aside className="h-screen lg:static fixed top-0 bottom-0 left-0 z-30">
+    <aside className="h-[100svh] lg:static fixed top-0 bottom-0 left-0 z-30">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <button

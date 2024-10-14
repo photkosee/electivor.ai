@@ -42,9 +42,9 @@ const ChatBox = () => {
       if (responseAreaRef.current) {
         // Also adjust the height of the response area accordingly
         if (textAreaRef.current.scrollHeight > 200) {
-          responseAreaRef.current.style.height = `calc(100vh - 270px)`;
+          responseAreaRef.current.style.height = `calc(100svh - 270px)`;
         } else {
-          responseAreaRef.current.style.height = `calc(100vh - ${
+          responseAreaRef.current.style.height = `calc(100svh - ${
             textAreaRef.current.scrollHeight + 70
           }px)`;
         }
@@ -129,7 +129,7 @@ const ChatBox = () => {
       <div className="bg-white h-4" />
 
       <div
-        className="overflow-y-auto w-full h-[calc(100vh-90px)]"
+        className="overflow-y-auto w-full h-[calc(100svh-90px)]"
         ref={responseAreaRef}
       >
         <div className="max-w-4xl mx-auto lg:pr-3 lg:pl-9 py-10">
