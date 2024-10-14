@@ -88,7 +88,7 @@ const ClearChatButton = () => {
           </div>
         ) : (
           <form
-            className="select-none flex flex-col gap-y-5 py-6"
+            className="select-none flex flex-col gap-y-5 py-3"
             onSubmit={clearChat}
           >
             <div className="mx-auto text-center">

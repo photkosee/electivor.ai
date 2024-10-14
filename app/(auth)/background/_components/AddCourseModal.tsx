@@ -61,6 +61,8 @@ const AddCourseModal = () => {
 
     if (courseExists) {
       console.log(`Course with ID: already exists. Cannot add duplicate.`);
+      setLoading(false);
+      setOpen(false);
       return; // Prevent duplicate course addition
     }
 
