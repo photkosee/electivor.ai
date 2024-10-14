@@ -2,6 +2,7 @@ import { MessageSquareQuote, School } from "lucide-react";
 
 import Sidebar from "@/app/(auth)/_components/Sidebar";
 import SidebarItem from "@/app/(auth)/_components/SidebarItem";
+import ClearChatButton from "@/app/(auth)/_components/ClearChatButton";
 
 const AuthLayout = ({
   children,
@@ -19,6 +20,8 @@ const AuthLayout = ({
         />
 
         <div className="h-[1px] w-full bg-neutral-200" />
+
+        <ClearChatButton />
       </Sidebar>
 
       <div className="pl-20 lg:pl-3 pr-3 w-full flex justify-center bg-white">

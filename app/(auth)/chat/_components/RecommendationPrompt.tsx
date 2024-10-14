@@ -1,10 +1,17 @@
 "use client";
 
+import useMessageStore from "@/app/_stores/MessageStore";
 import Link from "next/link";
 
 const RecommendationPrompt = () => {
+  const { messages } = useMessageStore();
+
   return (
-    <div className="px-5 flex flex-col sm:flex-row gap-3">
+    <div
+      className={`px-5 flex flex-col sm:flex-row gap-3 ${
+        messages.length > 0 ? "hidden" : ""
+      }`}
+    >
       <div
         className="bg-neutral-100 rounded-lg w-full text-black p-3 shadow-md
         flex flex-col gap-y-2 select-none"

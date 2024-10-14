@@ -1,16 +1,30 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState, useRef, useEffect } from "react";
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
 import { ArrowUp } from "lucide-react";
 
-import RecommendationPrompt from "@/app/(auth)/chat/_components/RecommendationPrompt";
-import QueryBubble from "@/app/(auth)/chat/_components/QueryBubble";
-import LoadingResponse from "@/app/(auth)/chat/_components/LoadingResponse";
+import { db } from "@/app/firebase";
+import { MessageType } from "@/app/types";
+import useUserStore from "@/app/_stores/UserStore";
+import useMessageStore from "@/app/_stores/MessageStore";
+import ChatList from "@/app/(auth)/chat/_components/ChatList";
+import LoadingScreen from "@/app/_components/LoadingScreen";
+
+const RecommendationPrompt = dynamic(
+  () => import("@/app/(auth)/chat/_components/RecommendationPrompt"),
+  {
+    ssr: false,
+  }
+);
 
 const ChatBox = () => {
   const [text, setText] = useState<string>("");
-  const [openSuggest, setOpenSuggest] = useState<boolean>(true);
-  const [query, setQuery] = useState<string>("");
+  const { messages, setMessages } = useMessageStore();
+  const { isLoaded } = useUser();
+  const { email } = useUserStore();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const responseAreaRef = useRef<HTMLDivElement>(null);
@@ -46,42 +60,74 @@ const ChatBox = () => {
     }
   };
 
-  // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (text.trim()) {
-      console.log("Message sent:", text); // Replace with your submission logic
-      setText(""); // Clear the input after submission
-      setOpenSuggest(false);
-    }
-  };
-
   // Ensure the height adjusts when the text state changes
   useEffect(() => {
     adjustHeight();
   }, [text]);
+
+  const submitQuery = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (text.trim()) {
+      console.log("Message sent:", text); // Replace with your submission logic
+      setText(""); // Clear the input after submission
+    }
+
+    const newQuery: MessageType = {
+      text: text.trim(),
+      sender: "user",
+    };
+    setMessages([...messages, newQuery]);
+
+    try {
+      const userRef = doc(db, "users", email);
+      // Check if the user exists
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        // User exists, just update their courses
+        await updateDoc(userRef, {
+          messages: arrayUnion(newQuery),
+        });
+      } else {
+        // User doesn't exist, create a new user and add the course
+        await setDoc(userRef, {
+          email,
+          courses: [],
+          messages: [newQuery],
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <LoadingScreen />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col items-center bg-white">
       <div className="bg-white h-4" />
 
       <div className="overflow-y-auto w-full" ref={responseAreaRef}>
-        <div className="max-w-4xl mx-auto px-3 lg:pl-9 py-10 flex flex-col gap-y-5">
-          Response
-          <QueryBubble text="asdfsdfasdfffffffffffffffffffffffffffffasdfasdfasdfasdfasdfasdfasdfasdfsadfasdfasdf fffffffffffffffffffffffffff" />
-          <LoadingResponse />
+        <div className="max-w-4xl mx-auto lg:pr-3 lg:pl-9 py-10">
+          <ChatList />
         </div>
       </div>
 
       <div className="flex flex-col gap-y-5 fixed bottom-0 max-w-4xl px-12 bg-white w-full">
-        {openSuggest ? <RecommendationPrompt /> : null}
+        <RecommendationPrompt />
 
         <div className="bg-white pb-3">
           <form
             className="bg-neutral-100 rounded-3xl w-full py-4 pl-6 pr-16 relative
             flex justify-between items-center cursor-text"
             onClick={handleParentClick} // Focus textarea when clicking the parent
-            onSubmit={handleSubmit}
+            onSubmit={submitQuery}
           >
             <div className="flex-grow bg-inherit flex items-center">
               <textarea
@@ -97,7 +143,7 @@ const ChatBox = () => {
                   // Submit the form when Enter is pressed
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
-                    handleSubmit(e);
+                    submitQuery(e);
                   }
                 }}
               />
