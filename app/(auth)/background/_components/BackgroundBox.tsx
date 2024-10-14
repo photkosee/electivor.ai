@@ -1,4 +1,4 @@
-import { FileUp } from "lucide-react";
+// import { FileUp } from "lucide-react";
 
 import AddCourseModal from "@/app/(auth)/background/_components/AddCourseModal";
 

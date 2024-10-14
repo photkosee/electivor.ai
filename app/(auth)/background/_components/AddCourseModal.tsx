@@ -48,6 +48,7 @@ const AddCourseModal = () => {
         const userData = userSnap.data();
         setCourses(userData.courses);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       showToast(
         (Math.random() + 1).toString(36).substring(7),
@@ -116,6 +117,7 @@ const AddCourseModal = () => {
       setCode("");
       setName("");
       setLoading(false);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setLoading(false);
 

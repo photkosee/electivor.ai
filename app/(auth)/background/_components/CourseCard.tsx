@@ -45,6 +45,7 @@ const CourseCard = ({ code, name }: CourseType) => {
           <Toast type="success" message="Success" desc="Course deleted" />
         );
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       showToast(
         (Math.random() + 1).toString(36).substring(7),
