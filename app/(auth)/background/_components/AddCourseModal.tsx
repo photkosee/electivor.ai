@@ -50,10 +50,19 @@ const AddCourseModal = () => {
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      setCode("");
+      setName("");
+
+      const id = (Math.random() + 1).toString(36).substring(7);
       showToast(
-        (Math.random() + 1).toString(36).substring(7),
+        id,
         toastList,
-        <Toast type="error" message="Error" desc="Could not fetch courses" />
+        <Toast
+          id={id}
+          type="error"
+          message="Error"
+          desc="Could not fetch courses"
+        />
       );
     }
   };
@@ -67,10 +76,19 @@ const AddCourseModal = () => {
     if (courseExists) {
       setLoading(false);
       setOpen(false);
+      setCode("");
+      setName("");
+
+      const id = (Math.random() + 1).toString(36).substring(7);
       showToast(
-        (Math.random() + 1).toString(36).substring(7),
+        id,
         toastList,
-        <Toast type="warning" message="Warning" desc="Course already exists" />
+        <Toast
+          id={id}
+          type="warning"
+          message="Warning"
+          desc="Course already exists"
+        />
       );
       return;
     }
@@ -90,10 +108,11 @@ const AddCourseModal = () => {
           courses: arrayUnion(newCourse),
         });
 
+        const id = (Math.random() + 1).toString(36).substring(7);
         showToast(
-          (Math.random() + 1).toString(36).substring(7),
+          id,
           toastList,
-          <Toast type="success" message="Success" desc="Course added" />
+          <Toast id={id} type="success" message="Success" desc="Course added" />
         );
         setCourses([...courses, newCourse]);
       } else {
@@ -106,10 +125,11 @@ const AddCourseModal = () => {
           createdAt: serverTimestamp(),
         });
 
+        const id = (Math.random() + 1).toString(36).substring(7);
         showToast(
-          (Math.random() + 1).toString(36).substring(7),
+          id,
           toastList,
-          <Toast type="success" message="Success" desc="Course added" />
+          <Toast id={id} type="success" message="Success" desc="Course added" />
         );
       }
 
@@ -121,10 +141,16 @@ const AddCourseModal = () => {
     } catch (error) {
       setLoading(false);
 
+      const id = (Math.random() + 1).toString(36).substring(7);
       showToast(
-        (Math.random() + 1).toString(36).substring(7),
+        id,
         toastList,
-        <Toast type="error" message="Error" desc="Could not add course" />
+        <Toast
+          id={id}
+          type="error"
+          message="Error"
+          desc="Could not add course"
+        />
       );
       return;
     }

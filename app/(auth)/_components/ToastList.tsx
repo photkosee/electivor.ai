@@ -1,27 +1,14 @@
 "use client";
 
-import useToastStore from "@/app/_stores/ToastStore";
 import { X } from "lucide-react";
+
+import useToastStore from "@/app/_stores/ToastStore";
 
 const ToastList = () => {
   const { toastList, closeToast } = useToastStore();
 
-  // useEffect(() => {
-  //   if (!isShown) {
-  //     return;
-  //   }
-
-  //   const timeoutId = setTimeout(() => {
-  //     closeToast(uniqueId, toastList);
-  //   }, 5000);
-
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [uniqueId, isShown, closeToast]);
-
   return (
-    <div className="space-y-2 absolute top-2 right-2">
+    <div className="space-y-2 absolute top-2 right-2 overflow-hidden">
       {toastList.map(({ id, component }) => (
         <div key={id} className="relative">
           <button

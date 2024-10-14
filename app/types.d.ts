@@ -7,3 +7,8 @@ export type MessageType = {
   text: string;
   sender: "bot" | "user";
 }
+
+export type ToastType = {
+  id: string
+  component: ReactNode
+}

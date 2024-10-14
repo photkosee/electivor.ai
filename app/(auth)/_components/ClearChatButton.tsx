@@ -34,20 +34,25 @@ const ClearChatButton = () => {
       setTimeout(() => {
         setLoading(false);
         setOpen(false);
+
+        const id = (Math.random() + 1).toString(36).substring(7);
         showToast(
-          (Math.random() + 1).toString(36).substring(7),
+          id,
           toastList,
-          <Toast type="success" message="Chat cleared" />
+          <Toast id={id} type="success" message="Chat cleared" />
         );
       }, 500);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
         setOpen(false);
+
+        const id = (Math.random() + 1).toString(36).substring(7);
         showToast(
-          (Math.random() + 1).toString(36).substring(7),
+          id,
           toastList,
-          <Toast type="error" message="Error" />
+          <Toast id={id} type="error" message="Error" />
         );
       }, 500);
     }

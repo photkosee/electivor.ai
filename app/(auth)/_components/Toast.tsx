@@ -1,12 +1,30 @@
+"use client";
+
+import { useEffect } from "react";
 import { CheckCircle, CircleAlert, XCircle } from "lucide-react";
 
+import useToastStore from "@/app/_stores/ToastStore";
+
 interface ToastInterface {
+  id: string;
   type: "success" | "error" | "info" | "warning";
   message: string;
   desc?: string;
 }
 
-const Toast = ({ type, message, desc }: ToastInterface) => {
+const Toast = ({ id, type, message, desc }: ToastInterface) => {
+  const { toastList, closeToast } = useToastStore();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      closeToast(id, toastList);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [closeToast, id, toastList]);
+
   const color = {
     success: "bg-green-500",
     error: "bg-red-500",
@@ -23,8 +41,8 @@ const Toast = ({ type, message, desc }: ToastInterface) => {
 
   return (
     <div
-      className={`${color[type]} w-[200px] sm:w-[260px] rounded-md p-2 pr-5 text-white text-sm
-      flex items-center gap-x-2`}
+      className={`${color[type]} w-[200px] sm:w-[260px] rounded-md p-2 pr-5 text-white
+      text-sm flex items-center gap-x-2`}
     >
       <div className="flex gap-x-2 items-center">
         <div className="flex-shrink-0">{icon[type]}</div>

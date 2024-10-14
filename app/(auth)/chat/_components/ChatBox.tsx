@@ -108,10 +108,16 @@ const ChatBox = () => {
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      const id = (Math.random() + 1).toString(36).substring(7);
       showToast(
-        (Math.random() + 1).toString(36).substring(7),
+        id,
         toastList,
-        <Toast type="error" message="Error" desc="Could not send query" />
+        <Toast
+          id={id}
+          type="error"
+          message="Error"
+          desc="Could not send query"
+        />
       );
     }
   };

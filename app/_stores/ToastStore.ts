@@ -1,10 +1,7 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
 
-type ToastType = {
-  id: string
-  component: ReactNode
-}
+import { ToastType } from "@/app/types";
 
 type ToastStoreType = {
   toastList: ToastType[]
