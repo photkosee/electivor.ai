@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { CheckCircle, CircleAlert, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CheckCircle, CircleAlert, X, XCircle } from "lucide-react";
 
 import useToastStore from "@/app/_stores/ToastStore";
 
@@ -14,6 +14,11 @@ interface ToastInterface {
 
 const Toast = ({ id, type, message, desc }: ToastInterface) => {
   const { toastList, closeToast } = useToastStore();
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    setIsAnimating(true);
+  }, []);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -39,24 +44,48 @@ const Toast = ({ id, type, message, desc }: ToastInterface) => {
     warning: <CircleAlert size={20} />,
   };
 
+  const handleClose = () => {
+    setIsAnimating(false);
+    setTimeout(() => {
+      closeToast(id, toastList);
+    }, 500);
+  };
+
   return (
     <div
-      className={`${color[type]} w-[200px] sm:w-[260px] rounded-md p-2 pr-5 text-white
-      text-sm flex items-center gap-x-2`}
+      key={id}
+      className={`relative ${
+        isAnimating ? "animate-fadeIn" : "animate-fadeOut"
+      }`}
+      role="button"
+      onClick={handleClose}
     >
-      <div className="flex gap-x-2 items-center">
-        <div className="flex-shrink-0">{icon[type]}</div>
-        <div className="flex flex-col">
-          <div className="font-semibold truncate w-[120px] sm:w-[180px]">
-            {message}
-          </div>
-          {desc ? (
-            <div className="text-sm truncate w-[120px] sm:w-[180px]">
-              {desc}
+      <div
+        className={`${color[type]} w-[200px] sm:w-[260px] rounded-md p-2 pr-5 text-white
+        text-sm flex items-center gap-x-2`}
+      >
+        <div className="flex gap-x-2 items-center">
+          <div className="flex-shrink-0">{icon[type]}</div>
+          <div className="flex flex-col">
+            <div className="font-semibold truncate w-[120px] sm:w-[180px]">
+              {message}
             </div>
-          ) : null}
+            {desc ? (
+              <div className="text-sm truncate w-[120px] sm:w-[180px]">
+                {desc}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
+
+      <button
+        onClick={handleClose}
+        className="absolute top-1/2 -translate-y-1/2 right-2 p-1 rounded-full
+            bg-neutral-200/20 text-white hover:bg-neutral-50/30 transition-all"
+      >
+        <X className="size-3" />
+      </button>
     </div>
   );
 };
