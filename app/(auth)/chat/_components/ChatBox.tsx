@@ -138,7 +138,7 @@ const ChatBox = () => {
         className="overflow-y-auto w-full h-[calc(100svh-90px)]"
         ref={responseAreaRef}
       >
-        <div className="max-w-4xl mx-auto lg:pr-3 lg:pl-9 py-10">
+        <div className="max-w-4xl mx-auto pr-0.5 lg:pr-3 lg:pl-9 py-10">
           <ChatList />
         </div>
         <div ref={messagesEndRef} />
@@ -149,7 +149,7 @@ const ChatBox = () => {
 
         <div className="bg-white pb-3">
           <form
-            className="bg-neutral-100 rounded-3xl w-full py-4 pl-6 pr-16 relative
+            className="bg-neutral-100 rounded-3xl w-full py-4 pl-6 pr-[52px] relative
             flex justify-between items-center cursor-text"
             onClick={handleParentClick} // Focus textarea when clicking the parent
             onSubmit={submitQuery}

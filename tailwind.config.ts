@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -32,7 +33,7 @@ const config: Config = {
     },
   },
   plugins: [
-    function ({ addUtilities }) {
+    function ({ addUtilities } : PluginAPI) {
       const newUtilities = {
         ".scrollbar-thin": {
           "scrollbar-width": "thin",
@@ -53,7 +54,7 @@ const config: Config = {
         }
       }
 
-      addUtilities(newUtilities, ["responsive", "hover"]);
+      addUtilities(newUtilities);
     },
   ],
 };

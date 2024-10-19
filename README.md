@@ -1,6 +1,6 @@
-# <p align="center"><a href=""><img width="350" src="./public/electivor.png" style="margin-top: 20px;"></a></p>
+# <p align="center"><a href=""><img width="350" src="" style="margin-top: 20px;"></a></p>
 
-<p align="center"> Course Recommendation Chatbot for UNSW students. <a href="">Ask here now!</a></p>
+<p align="center"> Course Recommendation Chatbot for UNSW students. <a href="">Currently under development</a></p>
 
 ## Table of Contents
 - [What this does](#what-this-does)
