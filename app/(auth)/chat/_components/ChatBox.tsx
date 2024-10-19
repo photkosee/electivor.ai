@@ -10,8 +10,10 @@ import { db } from "@/app/firebase";
 import { MessageType } from "@/app/types";
 import useUserStore from "@/app/_stores/UserStore";
 import useMessageStore from "@/app/_stores/MessageStore";
+import useToastStore from "@/app/_stores/ToastStore";
 import ChatList from "@/app/(auth)/chat/_components/ChatList";
 import LoadingScreen from "@/app/_components/LoadingScreen";
+import Toast from "@/app/(auth)/_components/Toast";
 
 const RecommendationPrompt = dynamic(
   () => import("@/app/(auth)/chat/_components/RecommendationPrompt"),
@@ -23,11 +25,13 @@ const RecommendationPrompt = dynamic(
 const ChatBox = () => {
   const [text, setText] = useState<string>("");
   const { messages, setMessages } = useMessageStore();
+  const { showToast, toastList } = useToastStore();
   const { isLoaded } = useUser();
   const { email } = useUserStore();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const responseAreaRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   // Adjust the height of the textarea based on its content
   const adjustHeight = () => {
@@ -37,12 +41,11 @@ const ChatBox = () => {
 
       if (responseAreaRef.current) {
         // Also adjust the height of the response area accordingly
-        console.log(textAreaRef.current.scrollHeight);
         if (textAreaRef.current.scrollHeight > 200) {
-          responseAreaRef.current.style.height = `calc(100vh - 270px)`;
+          responseAreaRef.current.style.height = `calc(100svh - 270px)`;
         } else {
-          responseAreaRef.current.style.height = `calc(100vh - ${
-            textAreaRef.current.scrollHeight + 90
+          responseAreaRef.current.style.height = `calc(100svh - ${
+            textAreaRef.current.scrollHeight + 70
           }px)`;
         }
       }
@@ -65,11 +68,18 @@ const ChatBox = () => {
     adjustHeight();
   }, [text]);
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const submitQuery = async (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
-      console.log("Message sent:", text); // Replace with your submission logic
-      setText(""); // Clear the input after submission
+      setText("");
     }
 
     const newQuery: MessageType = {
@@ -96,8 +106,19 @@ const ChatBox = () => {
           messages: [newQuery],
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error(error);
+      const id = (Math.random() + 1).toString(36).substring(7);
+      showToast(
+        id,
+        toastList,
+        <Toast
+          id={id}
+          type="error"
+          message="Error"
+          desc="Could not send query"
+        />
+      );
     }
   };
 
@@ -113,10 +134,14 @@ const ChatBox = () => {
     <div className="w-full flex flex-col items-center bg-white">
       <div className="bg-white h-4" />
 
-      <div className="overflow-y-auto w-full" ref={responseAreaRef}>
+      <div
+        className="overflow-y-auto w-full h-[calc(100svh-90px)]"
+        ref={responseAreaRef}
+      >
         <div className="max-w-4xl mx-auto lg:pr-3 lg:pl-9 py-10">
           <ChatList />
         </div>
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="flex flex-col gap-y-5 fixed bottom-0 max-w-4xl px-12 bg-white w-full">
@@ -135,7 +160,7 @@ const ChatBox = () => {
                 value={text}
                 onChange={handleChange}
                 autoFocus
-                placeholder="Ask here..."
+                placeholder="Currently under development..."
                 className="w-full h-auto resize-none overflow-auto focus:outline-none
                 text-gray-800 bg-inherit max-h-[200px] scrollbar-thin scrollbar-webkit"
                 rows={1}

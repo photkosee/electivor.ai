@@ -1,4 +1,4 @@
-import { FileUp } from "lucide-react";
+// import { FileUp } from "lucide-react";
 
 import AddCourseModal from "@/app/(auth)/background/_components/AddCourseModal";
 
@@ -16,14 +16,14 @@ const BackgroundBox = () => {
         </div>
       </div>
 
-      <button
+      {/* <button
         className="p-3 rounded-xl shadow-md flex items-center justify-center
         gap-x-2 border border-neutral-100 transition-all hover:bg-neutral-100"
         disabled
       >
         <FileUp className="flex-shrink-0" />
         Upload Academic Statement
-      </button>
+      </button> */}
 
       <AddCourseModal />
     </div>

@@ -15,9 +15,11 @@ import { useUser } from "@clerk/nextjs";
 import { CourseType } from "@/app/types";
 import { db } from "@/app/firebase";
 import useCourseStore from "@/app/_stores/CourseStore";
+import useToastStore from "@/app/_stores/ToastStore";
 import Modal from "@/app/_components/Modal";
 import LoadingScreen from "@/app/_components/LoadingScreen";
 import CourseList from "@/app/(auth)/background/_components/CourseList";
+import Toast from "@/app/(auth)/_components/Toast";
 
 const AddCourseModal = () => {
   const [open, setOpen] = useState(false);
@@ -27,6 +29,7 @@ const AddCourseModal = () => {
   const { courses, setCourses } = useCourseStore();
   const [userId, setUserId] = useState("");
   const { user, isLoaded } = useUser();
+  const { showToast, toastList } = useToastStore();
   const codeInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -44,12 +47,23 @@ const AddCourseModal = () => {
       if (userSnap.exists()) {
         const userData = userSnap.data();
         setCourses(userData.courses);
-        console.log("User Data:", userData);
-      } else {
-        console.log("No such user!");
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error("Error getting user data: ", error);
+      setCode("");
+      setName("");
+
+      const id = (Math.random() + 1).toString(36).substring(7);
+      showToast(
+        id,
+        toastList,
+        <Toast
+          id={id}
+          type="error"
+          message="Error"
+          desc="Could not fetch courses"
+        />
+      );
     }
   };
 
@@ -60,8 +74,23 @@ const AddCourseModal = () => {
     const courseExists = courses.some((course) => course.code === code);
 
     if (courseExists) {
-      console.log(`Course with ID: already exists. Cannot add duplicate.`);
-      return; // Prevent duplicate course addition
+      setLoading(false);
+      setOpen(false);
+      setCode("");
+      setName("");
+
+      const id = (Math.random() + 1).toString(36).substring(7);
+      showToast(
+        id,
+        toastList,
+        <Toast
+          id={id}
+          type="warning"
+          message="Warning"
+          desc="Course already exists"
+        />
+      );
+      return;
     }
 
     try {
@@ -78,7 +107,13 @@ const AddCourseModal = () => {
         await updateDoc(userRef, {
           courses: arrayUnion(newCourse),
         });
-        console.log("Course added to existing user!");
+
+        const id = (Math.random() + 1).toString(36).substring(7);
+        showToast(
+          id,
+          toastList,
+          <Toast id={id} type="success" message="Success" desc="Course added" />
+        );
         setCourses([...courses, newCourse]);
       } else {
         // User doesn't exist, create a new user and add the course
@@ -89,17 +124,35 @@ const AddCourseModal = () => {
           messages: [],
           createdAt: serverTimestamp(),
         });
-        console.log("User created and course added!");
+
+        const id = (Math.random() + 1).toString(36).substring(7);
+        showToast(
+          id,
+          toastList,
+          <Toast id={id} type="success" message="Success" desc="Course added" />
+        );
       }
 
       setOpen(false);
       setCode("");
       setName("");
       setLoading(false);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error(error);
       setLoading(false);
-      return "";
+
+      const id = (Math.random() + 1).toString(36).substring(7);
+      showToast(
+        id,
+        toastList,
+        <Toast
+          id={id}
+          type="error"
+          message="Error"
+          desc="Could not add course"
+        />
+      );
+      return;
     }
   };
 

@@ -17,7 +17,7 @@ const RecommendationPrompt = () => {
         flex flex-col gap-y-2 select-none"
       >
         <div className="font-semibold">
-          Let us recommend you the best course for you.
+          Let us recommend the best course for you.
         </div>
         <div className="text-neutral-500 text-sm">
           Let me know what kind of career you are looking for. What are the
