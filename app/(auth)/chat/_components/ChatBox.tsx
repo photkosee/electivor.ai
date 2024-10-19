@@ -160,7 +160,7 @@ const ChatBox = () => {
                 value={text}
                 onChange={handleChange}
                 autoFocus
-                placeholder="Ask here..."
+                placeholder="Currently under development..."
                 className="w-full h-auto resize-none overflow-auto focus:outline-none
                 text-gray-800 bg-inherit max-h-[200px] scrollbar-thin scrollbar-webkit"
                 rows={1}

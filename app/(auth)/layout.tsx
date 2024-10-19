@@ -13,12 +13,12 @@ const AuthLayout = ({
   return (
     <div className="min-h-[100svh] h-full flex justify-start bg-secondary relative">
       <Sidebar>
-        <SidebarItem icon={<School />} text="Background" link="/background" />
         <SidebarItem
           icon={<MessageSquareQuote />}
           text="Ask a Question"
           link="/chat"
         />
+        <SidebarItem icon={<School />} text="Background" link="/background" />
 
         <div className="h-[1px] w-full bg-neutral-200" />
 
