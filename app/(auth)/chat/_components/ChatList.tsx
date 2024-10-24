@@ -19,10 +19,35 @@ const ChatList = () => {
   const greetings = "Hello there, how can I help you today?";
 
   useEffect(() => {
+    const getMessagesFromUser = async (email: string) => {
+      try {
+        const userRef = doc(db, "users", email);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          setMessages(userData.messages);
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        const id = (Math.random() + 1).toString(36).substring(7);
+        showToast(
+          id,
+          toastList,
+          <Toast
+            id={id}
+            type="error"
+            message="Error"
+            desc="Could not fetch messages"
+          />
+        );
+      }
+    };
+
     if (isLoaded && user) {
       getMessagesFromUser(user.emailAddresses[0].emailAddress);
     }
-  }, [isLoaded, user]);
+  }, [isLoaded, setMessages, showToast, toastList, user]);
 
   useEffect(() => {
     scrollToBottom();
@@ -31,31 +56,6 @@ const ChatList = () => {
   const scrollToBottom = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: "auto" });
-    }
-  };
-
-  const getMessagesFromUser = async (email: string) => {
-    try {
-      const userRef = doc(db, "users", email);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        const userData = userSnap.data();
-        setMessages(userData.messages);
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      const id = (Math.random() + 1).toString(36).substring(7);
-      showToast(
-        id,
-        toastList,
-        <Toast
-          id={id}
-          type="error"
-          message="Error"
-          desc="Could not fetch messages"
-        />
-      );
     }
   };
 
@@ -70,6 +70,7 @@ const ChatList = () => {
         role="bot"
         noStreaming={messages.length > 1}
       />
+
       {messages.map((message, index: number) => (
         <ChatBubble
           text={message.text}

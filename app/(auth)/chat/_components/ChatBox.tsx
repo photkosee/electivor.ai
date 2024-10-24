@@ -146,13 +146,13 @@ const ChatBox = () => {
         className="overflow-y-auto w-full h-[calc(100svh-90px)]"
         ref={responseAreaRef}
       >
-        <div className="max-w-4xl mx-auto pr-0.5 lg:pr-3 lg:pl-9 py-10">
+        <div className="max-w-3xl xl:max-w-4xl mx-auto px-0.5 lg:px-3 py-10">
           <ChatList />
         </div>
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="flex flex-col gap-y-5 fixed bottom-0 max-w-4xl px-12 bg-white w-full">
+      <div className="flex flex-col gap-y-5 fixed bottom-0 max-w-3xl xl:max-w-4xl px-12 bg-white w-full">
         <RecommendationPrompt />
 
         <div className="bg-white pb-3">
@@ -168,7 +168,7 @@ const ChatBox = () => {
                 value={text}
                 onChange={handleChange}
                 autoFocus
-                placeholder="Currently under development..."
+                placeholder="Ask here..."
                 className="w-full h-auto resize-none overflow-auto focus:outline-none
                 text-gray-800 bg-inherit max-h-[200px] scrollbar-thin scrollbar-webkit"
                 rows={1}

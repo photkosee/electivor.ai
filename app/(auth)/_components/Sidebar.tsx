@@ -14,7 +14,7 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setEmail(user?.emailAddresses[0]?.emailAddress || "");
-  }, [user]);
+  }, [setEmail, user]);
 
   return (
     <aside className="h-[100svh] lg:static fixed top-0 bottom-0 left-0 z-30">
