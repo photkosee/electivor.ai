@@ -14,7 +14,7 @@ const useStreamText = (text: string) => {
     }, 15);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [index, text.length]);
 
   return text.slice(0, index);
 }
