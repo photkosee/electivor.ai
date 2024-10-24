@@ -7,15 +7,16 @@ import { useUser } from "@clerk/nextjs";
 import { db } from "@/app/firebase";
 import useMessageStore from "@/app/_stores/MessageStore";
 import useToastStore from "@/app/_stores/ToastStore";
-import QueryBubble from "@/app/(auth)/chat/_components/QueryBubble";
 import Toast from "@/app/(auth)/_components/Toast";
 import LoadingScreen from "@/app/_components/LoadingScreen";
+import ChatBubble from "@/app/(auth)/chat/_components/ChatBubble";
 
 const ChatList = () => {
   const { user, isLoaded } = useUser();
   const { messages, setMessages } = useMessageStore();
   const { showToast, toastList } = useToastStore();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const greetings = "Hello there, how can I help you today?";
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -64,8 +65,18 @@ const ChatList = () => {
 
   return (
     <div className="flex flex-col gap-y-3">
+      <ChatBubble
+        text={greetings}
+        role="bot"
+        noStreaming={messages.length > 1}
+      />
       {messages.map((message, index: number) => (
-        <QueryBubble text={message.text} key={index} />
+        <ChatBubble
+          text={message.text}
+          key={index}
+          role={message.role}
+          noStreaming={index !== messages.length - 1}
+        />
       ))}
     </div>
   );

@@ -1,4 +1,4 @@
-# <p align="center"><a href=""><img width="350" src="" style="margin-top: 20px;"></a></p>
+# <p align="center"><a href="">Electivor.ai</a></p>
 
 <p align="center"> Course Recommendation Chatbot for UNSW students. <a href="">Currently under development</a></p>
 
