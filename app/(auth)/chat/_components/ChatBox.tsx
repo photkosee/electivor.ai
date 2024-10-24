@@ -83,10 +83,18 @@ const ChatBox = () => {
     }
 
     const newQuery: MessageType = {
+      id: (Math.random() + 1).toString(36).substring(7),
       text: text.trim(),
-      sender: "user",
+      role: "user",
     };
-    setMessages([...messages, newQuery]);
+
+    const responseQuery: MessageType = {
+      id: (Math.random() + 1).toString(36).substring(7),
+      text: "This AI is under development and is not ready yet.",
+      role: "bot",
+    };
+
+    setMessages([...messages, newQuery, responseQuery]);
 
     try {
       const userRef = doc(db, "users", email);
@@ -96,14 +104,14 @@ const ChatBox = () => {
       if (userDoc.exists()) {
         // User exists, just update their courses
         await updateDoc(userRef, {
-          messages: arrayUnion(newQuery),
+          messages: arrayUnion(newQuery, responseQuery),
         });
       } else {
-        // User doesn't exist, create a new user and add the course
+        // User doesn't exist, create a new user and add the messages
         await setDoc(userRef, {
           email,
           courses: [],
-          messages: [newQuery],
+          messages: [newQuery, responseQuery],
         });
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

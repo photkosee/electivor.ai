@@ -4,8 +4,9 @@ export type CourseType = {
 };
 
 export type MessageType = {
+  id: string;
   text: string;
-  sender: "bot" | "user";
+  role: "bot" | "user";
 }
 
 export type ToastType = {

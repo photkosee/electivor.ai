@@ -7,7 +7,7 @@ import "@/app/globals.css";
 const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "UniPath UNSW",
+  title: "Electivor.ai",
   description: "Course Recommendation Chatbot for UNSW students",
 };
 
