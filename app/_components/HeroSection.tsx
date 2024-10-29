@@ -1,39 +1,45 @@
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <div className="flex items-center justify-around w-full max-w-7xl mx-auto p-5 gap-x-10">
-      <div className="flex flex-col gap-y-3 text-center max-w-lg">
-        <div
-          className="flex justify-center items-center text-4xl xs:text-5xl sm:text-7xl
-          text-transparent font-extrabold"
+    <div className="text-center flex flex-col gap-y-7">
+      <h1
+        className="text-5xl xs:text-6xl font-extrabold bg-clip-text text-transparent
+        bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600"
+      >
+        Electivor.ai
+      </h1>
+
+      <p className="text-xl xs:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        <span
+          className="underline decoration-wavy text-xl xs:text-2xl decoration-green-400
+          text-green-400 font-bold underline-offset-4"
         >
-          <h1 className="bg-gradient-to-r from-[#217bfe] to-[#e55571] bg-clip-text">
-            Electivor
-          </h1>
-          <h1 className="bg-gradient-to-r from-[#217bfe] to-[#e55571] bg-clip-text">
-            .ai
-          </h1>
-        </div>
-
-        <h2 className="text-xl lg:text-2xl font-medium">
-          Course Recommendation Chatbot
-          <br />
-          for UNSW students
-        </h2>
-
-        <h3 className="text-neutral-300">
-          Are you feeling confused and overwhelmed by the choices you have?
-          <br /> Not knowing which course to take for your career?
-        </h3>
-
-        <Link
-          href="/chat"
-          className="bg-gradient-to-r from-[#217bfe] to-[#e55571] px-6 py-3
-          rounded-full w-auto font-semibold text-lg hover:opacity-90 transition-all"
+          Chatbot
+        </span>{" "}
+        that can recommend the best course according to your{" "}
+        <span
+          className="bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text
+          text-transparent font-bold"
         >
-          Ask Here
-        </Link>
+          Preferrence
+        </span>{" "}
+        , try this if you are a UNSW student!{" "}
+      </p>
+
+      <div>
+        <button
+          className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600
+          hover:to-teal-600 text-white px-8 py-2 rounded-lg"
+        >
+          <Link
+            href="/chat"
+            className="flex items-center text-xl font-semibold"
+          >
+            Ask Now <ChevronRight />
+          </Link>
+        </button>
       </div>
     </div>
   );
