@@ -90,7 +90,7 @@ const ChatBox = () => {
 
     const responseQuery: MessageType = {
       id: (Math.random() + 1).toString(36).substring(7),
-      text: "This AI is under development and is not ready yet.",
+      text: "Seems like the author ran out of credits to maintain this bot. Please try again later.",
       role: "bot",
     };
 
