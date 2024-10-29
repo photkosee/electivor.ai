@@ -8,23 +8,23 @@ export type BenefitType = {
 
 export const benefits = [
 	{
-		title: "Cover All Fields of Study",
-		description: "UNSW offers a wide range of courses in various fields, which can be overlooked if you're just starting out",
+		title: "UNSW Course Recommender",
+		description: "UNSW offers a diverse range of courses across numerous fields, which can be easily missed by new students.",
 		icon: School,
 	},
 	{ 
     title: "Personal Plan Assistant",
-    description: "Get personalized course recommendations based on your goals, career, or topics",
+    description: "Receive tailored course recommendations based on your career goals, interests, or specific topics.",
     icon: NotebookPen
   },
 	{ 
     title: "Real-Time Chat", 
-    description: "Chat with our chatbot that never sleeps and always be there for you", 
+    description: "Chat with our 24/7 chatbot, always ready to assist you.", 
     icon: BotMessageSquare 
   },
 	{
-    title: "Built By a Student For a Student", 
-    description: "Our chatbot is built by a student for a student, we know your struggles",
+    title: "Developed By Students, For Students", 
+    description: "Developed by students, for students. Our chatbot is designed to empathize with your academic journey.",
     icon: Blocks 
   },
 ];

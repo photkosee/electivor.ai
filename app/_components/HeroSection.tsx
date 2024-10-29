@@ -11,21 +11,22 @@ const HeroSection = () => {
         Electivor.ai
       </h1>
 
-      <p className="text-xl xs:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+      <p className="text-xl xs:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        Unsure about your next course? Let our{" "}
         <span
           className="underline decoration-wavy text-xl xs:text-2xl decoration-green-400
           text-green-400 font-bold underline-offset-4"
         >
           Chatbot
         </span>{" "}
-        that can recommend the best course according to your{" "}
+        guide you! Input your{" "}
         <span
           className="bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text
           text-transparent font-bold"
         >
-          Preferrence
+          preferrences,
         </span>{" "}
-        , try this if you are a UNSW student!{" "}
+        and we&apos;ll recommend the best fit for you.
       </p>
 
       <div>
